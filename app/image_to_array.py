@@ -1,6 +1,6 @@
 from PIL import Image
 import numpy as np
-import piexif
+from PIL import ExifTags
 
 #image_path = 'images/test.png'
 def image_to_array(image_path):
@@ -16,11 +16,6 @@ def image_to_array(image_path):
     #image_path = 'images/test.png'
     image = Image.open(image_path)  # Open the image file
 
-    # Extract EXIF data
-    exif_data = image._getexif()
-    print(exif_data)
-
-
     # Convert the image to raw pixel values
     pixel_data = np.array(image)
     # Print the pixel data array
@@ -34,7 +29,6 @@ def image_to_array(image_path):
     # Print the total number of pixels
     print(f"Total number of pixels: {total_pixels}")
     return pixel_data
-
 
 
 
