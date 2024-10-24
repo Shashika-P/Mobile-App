@@ -7,19 +7,19 @@ from cryptography.hazmat.backends import default_backend
 
 #image_path = '../images/edited_test.png'
 #image_path = '../images/test.png'
-image_path = '../images/edited_test2.jpg'
+#image_path = '../images/edited_test2.jpg'
 #image_path = '../images/test2.jpg'
+#image_path = '../images/test3.jpg'
+#image_path = '../images/edited_test3.jpg'
+#image_path = '../images/edited_new_modified.jpg'
+#image_path = '../images/new_modified.jpg'
+image_path = '../images/new_modified_test2.jpg'
+
 
 # Read the hash from the file
 with open("hash_code_encrypted.txt", "r") as file:
     saved_hash_code_encrypted = bytes.fromhex(file.read())
 
-"""with Image.open(image_path) as img:
-    meta_data = img.info
-    print(meta_data)
-    saved_hash_code_encrypted = (meta_data['custom_meta_data'])
-    if saved_hash_code_encrypted:
-        saved_hash_code_encrypted = bytes.fromhex(saved_hash_code_encrypted).decode('utf-8')"""
 
 # Load the private key from the PEM file
 with open('private_key.pem', 'rb') as f:

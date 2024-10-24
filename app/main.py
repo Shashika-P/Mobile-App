@@ -6,10 +6,11 @@ from PIL import Image
 # Specify the path to your image file
 image_path = '../images/test2.jpg'
 #image_path = '../images/test.png'
+#image_path = '../images/test3.jpg'
 
 # Call the function
 pixel_data = image_to_array.image_to_array(image_path)
-exif_data = image_cryptography.extract_exif_data(image_path)
+#exif_data = image_cryptography.extract_exif_data(image_path)
 
 hash_code = hash_generator.generate_hash_from_pixel_data(pixel_data)
 print('Hash code :', hash_code)
@@ -30,3 +31,15 @@ with open("hash_code_encrypted.txt", "w") as file:
 print(f"Hash code saved as encrypted hex value:", encrypted.hex())
 
 #image_to_array.add_custom_meta_data(image_path, 'custom_meta_data', encrypted.hex())
+img = Image.open(image_path)
+# Extract existing EXIF data
+exif_data = img.getexif()
+print('exif data :', exif_data)
+# Modify existing metadata
+exif_data[0x9286] = encrypted.hex()  # 0x9286 is the tag for 'UserComment'
+# Save the image with new EXIF metadata
+img.save('../images/new_modified_test2.jpg', exif=exif_data)
+img = Image.open('../images/new_modified_test2.jpg')
+# Extract existing EXIF data
+exif_data = img.getexif()
+print('new exif data :', exif_data)
