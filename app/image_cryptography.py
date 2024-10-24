@@ -23,8 +23,31 @@ def generate_keys():
     )
     public_key = private_key.public_key()
 
+    pem = private_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.TraditionalOpenSSL,
+        encryption_algorithm=serialization.NoEncryption()  # If no passphrase is used
+    )
+    # Save the key to a file
+    with open('private_key.pem', 'wb') as f:
+        f.write(pem)
+
+    # The PEM format now contains the actual private key information
+    print(pem.decode('utf-8'))
+
+    pem_public = public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo
+    )
+    # Save the key to a file
+    with open('public_key.pem', 'wb') as f:
+        f.write(pem_public)
+
+    # Print the public key in PEM format
+    print(pem_public.decode('utf-8'))
 
     return private_key, public_key
+
 
 def encrypt_message(public_key, message: str):
     encrypted_message = public_key.encrypt(

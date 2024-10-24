@@ -7,8 +7,7 @@ image_path = '../images/test.png'
 
 # Call the function
 pixel_data = image_to_array.image_to_array(image_path)
-
-exif_data = image_cryptography.extract_exif_data(image_path)
+#exif_data = image_cryptography.extract_exif_data(image_path)
 
 hash_code = hash_generator.generate_hash_from_pixel_data(pixel_data)
 print('Hash code :', hash_code)
@@ -23,7 +22,14 @@ message = hash_code
 # Encrypt the message
 encrypted = image_cryptography.encrypt_message(public_key, message)
 print(f"Encrypted message: {encrypted}")
+# Save the hash to a file
+with open("hash_code_encrypted.txt", "w") as file:
+    file.write(encrypted.hex())
+
+    #encrypted msg will be save with META data
+
+print(f"Hash code saved")
 
 # Decrypt the message
-decrypted = image_cryptography.decrypt_message(private_key, encrypted)
-print(f"Decrypted message: {decrypted}")
+#decrypted = image_cryptography.decrypt_message(private_key, encrypted)
+#print(f"Decrypted message: {decrypted}")
