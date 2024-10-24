@@ -16,6 +16,7 @@ def extract_exif_data(image_path):
             print(f"{key}: {value}")
     else:  # If no EXIF data found
         print("EXIF data unavailable.")
+
 def generate_keys():
     private_key = rsa.generate_private_key(
         public_exponent=65537,
@@ -28,23 +29,17 @@ def generate_keys():
         format=serialization.PrivateFormat.TraditionalOpenSSL,
         encryption_algorithm=serialization.NoEncryption()  # If no passphrase is used
     )
-    # Save the key to a file
+    # Save the key to a file PEM format
     with open('private_key.pem', 'wb') as f:
         f.write(pem)
-
-    # The PEM format now contains the actual private key information
-    print(pem.decode('utf-8'))
 
     pem_public = public_key.public_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PublicFormat.SubjectPublicKeyInfo
     )
-    # Save the key to a file
+    # Save the key to a file PEM format
     with open('public_key.pem', 'wb') as f:
         f.write(pem_public)
-
-    # Print the public key in PEM format
-    print(pem_public.decode('utf-8'))
 
     return private_key, public_key
 

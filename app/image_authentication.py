@@ -1,13 +1,25 @@
 import image_cryptography
+from PIL import Image
 import image_to_array
 import hash_generator
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
 
-image_path = '../images/edited_test.png'
+#image_path = '../images/edited_test.png'
+#image_path = '../images/test.png'
+image_path = '../images/edited_test2.jpg'
+#image_path = '../images/test2.jpg'
+
 # Read the hash from the file
 with open("hash_code_encrypted.txt", "r") as file:
     saved_hash_code_encrypted = bytes.fromhex(file.read())
+
+"""with Image.open(image_path) as img:
+    meta_data = img.info
+    print(meta_data)
+    saved_hash_code_encrypted = (meta_data['custom_meta_data'])
+    if saved_hash_code_encrypted:
+        saved_hash_code_encrypted = bytes.fromhex(saved_hash_code_encrypted).decode('utf-8')"""
 
 # Load the private key from the PEM file
 with open('private_key.pem', 'rb') as f:
@@ -20,7 +32,7 @@ original_hash_code = image_cryptography.decrypt_message(private_key, saved_hash_
 
 # Call the function for image
 pixel_data = image_to_array.image_to_array(image_path)
-#exif_data = image_cryptography.extract_exif_data(image_path)
+exif_data = image_cryptography.extract_exif_data(image_path)
 hash_code = hash_generator.generate_hash_from_pixel_data(pixel_data)
 
 if hash_code == original_hash_code:

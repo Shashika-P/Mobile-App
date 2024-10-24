@@ -18,9 +18,6 @@ def image_to_array(image_path):
 
     # Convert the image to raw pixel values
     pixel_data = np.array(image)
-    # Print the pixel data array
-    print("Pixel Data Array:")
-    print(pixel_data)
 
     # Calculate number of pixels
     height, width, channels = pixel_data.shape  # Unpack the shape of the array
@@ -30,7 +27,19 @@ def image_to_array(image_path):
     print(f"Total number of pixels: {total_pixels}")
     return pixel_data
 
+def add_custom_meta_data(image_path, metadata_key, metadata_value):
+    """
+    Adds custom metadata to an image.
 
+    Args:
+        image_path (str): Path to the image file.
+        metadata_key (str): Key for the custom metadata.
+        metadata_value (str): Value for the custom metadata.
+    """
+    with Image.open(image_path) as img:
+        metadata = img.info
+        metadata[metadata_key] = metadata_value
+        img.save(image_path)
 
 
 
