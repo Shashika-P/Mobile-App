@@ -1,5 +1,4 @@
 from PIL import Image
-from PIL import ExifTags
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import serialization, hashes
 
